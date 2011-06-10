@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<user enabled="true">
+  <user-name>aspera_vdms</user-name>
+  <password>transfer123</password>
+  <creation-date>1237057734887</creation-date>
+  <properties>
+ 
+    <property name="firstName" value="Aspera"/>
+  </properties>
+  <group id="guest"/>
+</user>

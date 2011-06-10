@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<user enabled="true">
+  <user-name>101</user-name>
+  <password>DES:Q/GuMec8IFo=</password>
+  <creation-date>1286810393435</creation-date>
+  <properties>
+    <property name="lastName" value="dsf"/>
+    <property name="screenname" value="sdf"/>
+    <property name="email" value="sdf"/>
+    <property name="firstName" value="ddsfd"/>
+  </properties>
+  <group id="guest"/>
+</user>
