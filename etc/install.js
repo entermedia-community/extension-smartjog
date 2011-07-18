@@ -3,7 +3,7 @@ importPackage( Packages.java.util );
 importPackage( Packages.java.lang );
 importPackage( Packages.com.openedit.modules.update );
 
-var war = "http://dev.entermediasoftware.com/projects/entermedia-smartjog/entermedia-smartjog.zip";
+var war = "http://dev.entermediasoftware.com/jenkins/job/extension-smartjog/lastSuccessfulBuild/artifact/deploy/extension-smartjog.zip";
 
 var root = moduleManager.getBean("root").getAbsolutePath();
 var web = root + "/WEB-INF";
