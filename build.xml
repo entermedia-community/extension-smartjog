@@ -94,6 +94,7 @@
     
 	
 	<target name="zip" depends="compile">
+	  	<mkdir dir="${base}"/>
 		<mkdir dir="${deployDir}/builds/"/>
 		<echo message="test zip"/>
 		<zip destfile="${deployDir}/builds/${appname}.zip" >			
@@ -104,12 +105,10 @@
 			<zipfileset dir="${webinf}/bin" prefix="bin" />
 		</zip>
 		<echo message="test zip 2"/>
-  </target>
-	    
+  </target>    
 	
 	
   <target name="junit">
-  	
     <javac debug="true" destdir="${compiled}" srcdir="${testsrc}" source="1.5" target="1.5">
       <classpath>
         <fileset dir="${lib}">
