@@ -165,7 +165,7 @@
 	<target name="publish" depends="javadoc, zip">
 		  
 			<!-- publish results to anthill -->
-		 	<copy file="${deployDir}/builds/entermedia-smartjog.zip" overwrite="true"
+		 	<copy file="${deployDir}/builds/${appname}.zip" overwrite="true"
 		        tofile="${deployDir}/${appname}.zip"/>
 		
 
