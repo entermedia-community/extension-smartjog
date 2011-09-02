@@ -96,7 +96,6 @@
 	<target name="zip" depends="compile">
 	  	<mkdir dir="${base}"/>
 		<mkdir dir="${deployDir}/builds/"/>
-		<echo message="test zip"/>
 		<zip destfile="${deployDir}/builds/${appname}.zip" >			
 			<zipfileset dir="${lib}" prefix="lib" excludes="compile/**"/>
 			
@@ -104,7 +103,6 @@
 			<zipfileset dir="${base}" prefix="base" />
 			<zipfileset dir="${webinf}/bin" prefix="bin" />
 		</zip>
-		<echo message="test zip 2"/>
   </target>    
 	
 	
@@ -168,7 +166,7 @@
 		  
 			<!-- publish results to anthill -->
 		 	<copy file="${deployDir}/builds/entermedia-smartjog.zip" overwrite="true"
-		        tofile="${deployDir}/entermedia-smartjog.zip"/>
+		        tofile="${deployDir}/${appname}.zip"/>
 		
 
 		 	<copy file="${etc}/install.js" overwrite="true"
