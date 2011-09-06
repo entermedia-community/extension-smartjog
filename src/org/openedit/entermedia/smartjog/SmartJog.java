@@ -77,8 +77,8 @@ public class SmartJog
 		
 		if (!sslDir.endsWith("/"))
 			sslDir += "/";
-		log.debug("Path of the TrustStore : " + sslDir + trustStoreName);
-		log.debug("Path of your certificate : " + sslDir + certificateName);
+		log.info("Path of the TrustStore : " + sslDir + trustStoreName);
+		log.info("Path of your certificate : " + sslDir + certificateName);
 		//System.setProperty("javax.net.debug", "all");
 		System.setProperty("javax.net.ssl.keyStore", sslDir + certificateName);
 		System.setProperty("javax.net.ssl.keyStorePassword",
