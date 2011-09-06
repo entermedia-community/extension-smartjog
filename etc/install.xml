@@ -1,86 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="default" name="upgrade">
 
-  <target name="default" depends="clean, update-dependencies, unzip, upgrade"/>
-   
-    <property name="appname" value="${ant.project.name}"/>
-    <property name="appnameshort" value="smartjog"/>
-    <property name="org" value="eInnovation, inc."/>
-    <property name="src" location="WEB-INF/src"/>
-    <property name="lib" location="WEB-INF/lib"/>
-    <property name="resources" location="resources"/>
-    <property name="build" location="./tmp/oe_upgrade"/>
-    <property name="wardir" location="${build}/wartmp"/>
-    <property name="webinf" location="WEB-INF"/>
-    
+	<target name="default" depends="clean, update-dependencies, unzip, upgrade" />
 
-	<!-- 
-		========================================================================
-		Anthill build server properties.  These properties will be passed in
-		by anthill when this script is executed on the build server.
-		
-			- "version" is set by the version adapter
-			- "deployDir" is set by anthill.publish.dir
-		========================================================================
-	--> 
-  	<property name="version"  value="dev"/>
-  	<property name="deployDir" location="deploy"/>
-  	
-  	<!-- A convenience variable for documentation output -->
-  	<property name="versionDir" location="${deployDir}/${version}"/>
-  	<property name="versionedApp" value="${appname}-${version}"/>
+	<property name="appname" value="${ant.project.name}" />
+	<property name="appnameshort" value="smartjog" />
+	<property name="org" value="eInnovation, inc." />
+	<property name="src" location="WEB-INF/src" />
+	<property name="lib" location="WEB-INF/lib" />
+	<property name="resources" location="resources" />
+	<property name="build" location="./tmp/oe_upgrade" />
+	<property name="wardir" location="${build}/wartmp" />
+	<property name="webinf" location="WEB-INF" />
 
-  <target name="clean">
-  </target>
-  
-	
+	<!-- A convenience variable for documentation output -->
+	<property name="versionDir" location="${deployDir}/${version}" />
+	<property name="versionedApp" value="${appname}-${version}" />
+
+	<target name="clean">
+	</target>
+
+
 	<target name="update-dependencies" depends="clean">
-		<mkdir dir="${build}"/>
+		<mkdir dir="${build}" />
 
-		<get src="http://dev.entermediasoftware.com/jenkins/job/${appname}/lastSuccessfulBuild/artifact/deploy/${appname}.zip" dest="${build}/${appname}.zip" />	
-	  
-  </target>
-    
-  <target name="unzip">
-  	<mkdir dir="${build}/unpacked"/>
-    <unzip dest="${build}/unpacked" src="${build}/${appname}.zip" />
-  </target>
-  
-	
-  <target name="upgrade">
-  	<echo>Delete old libs</echo>
-    <delete>
-      <fileset dir="./lib" includes="${appname}**.jar"/>
-    </delete>
-    <delete>
-      <fileset dir="./lib" includes="${appnameshort}**.jar"/>
-    </delete>
-  	
-    <copy todir="./lib" overwrite="false" preservelastmodified="true">
-      <fileset file="${build}/unpacked/lib/${appname}*.jar"/>
-    </copy>
-    <copy todir="./lib" overwrite="false" preservelastmodified="true">
-      <fileset file="${build}/unpacked/lib/${appnameshort}**.jar"/>
-    </copy>
+		<get src="http://dev.entermediasoftware.com/jenkins/job/${appname}/lastSuccessfulBuild/artifact/deploy/${appname}.zip" dest="${build}/${appname}.zip" />
 
-    <delete failonerror="false">
-      <fileset dir="../WEB-INF/bin/windows/${appnameshort}"/>
-    </delete>
-    <delete failonerror="false">
-      <fileset dir="../WEB-INF/bin/linux/${appnameshort}"/>
-    </delete>
-  	
-    <copy todir="../WEB-INF/bin/linux/${appnameshort}" preservelastmodified="true">
-      <fileset dir="${build}/unpacked/bin/linux/${appnameshort}"/>
-    </copy>
-    <copy todir="../WEB-INF/bin/windows/${appnameshort}" preservelastmodified="true">
-       <fileset dir="${build}/unpacked/bin/windows/${appnameshort}"/>
-     </copy>
+	</target>
 
-    <delete dir="${build}"/>
-    
-  </target>
+	<target name="unzip">
+		<mkdir dir="${build}/unpacked" />
+		<unzip dest="${build}/unpacked" src="${build}/${appname}.zip" />
+	</target>
 
-  
- 
+	<target name="upgrade">
+		<echo>Delete old libs</echo>
+		<delete>
+			<fileset dir="./lib">
+				<include name="${appname}**.jar" />
+				<include name="sjws.jar" />
+				<include name="axis.jar" />
+				<include name="jaxrpc.jar" />
+				<include name="commons-discovery*.jar" />
+				<include name="commons-logging*.jar" />
+				<include name="wsdl4j*.jar" />
+			</fileset>
+		</delete>
+
+		<copy todir="./lib" overwrite="false" preservelastmodified="true">
+			<fileset dir="${build}/unpacked/lib">
+				<include name="${appname}**.jar" />
+				<include name="sjws.jar" />
+				<include name="axis.jar" />
+				<include name="jaxrpc.jar" />
+				<include name="commons-discovery*.jar" />
+				<include name="commons-logging*.jar" />
+				<include name="wsdl4j*.jar" />
+			</fileset>
+		</copy>
+
+		<delete dir="${build}" />
+
+	</target>
+
 </project>
