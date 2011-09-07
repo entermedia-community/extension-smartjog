@@ -13,6 +13,8 @@ import com.smartjog.webservices.DeliverResponse;
 import com.smartjog.webservices.Delivery;
 import com.smartjog.webservices.GetCompaniesRequest;
 import com.smartjog.webservices.GetCompaniesResponse;
+import com.smartjog.webservices.GetOutgoingDeliveryRequest;
+import com.smartjog.webservices.GetOutgoingDeliveryResponse;
 import com.smartjog.webservices.GetServerFilesRequest;
 import com.smartjog.webservices.GetServerFilesResponse;
 import com.smartjog.webservices.GetServersRequest;
@@ -195,5 +197,31 @@ public class SmartJog
 		}
 
 		return deliveryArray;
+	}
+	
+	public Status updateStatus(String inTrackingNumber, int inServerId, int inDeliveryId)
+	{
+		GetOutgoingDeliveryRequest req = new GetOutgoingDeliveryRequest(); 
+		req.setDeliveryIdArray(new int[]{inServerId});
+		req.setServerIdArray(new int[]{inServerId});
+		req.setTrackingNumberArray(new String[]{inTrackingNumber});
+		Status status = new Status();
+		try
+		{
+			GetOutgoingDeliveryResponse res = getService().getOutgoingDelivery(req);
+			Delivery delivery = res.getDeliveryArray()[0];
+			//Complete, Processing, Aborting, Aborted)
+			String complete = delivery.getCompletion();
+			if( complete != null)
+			{
+				status.setPercent(complete);
+			}				
+			status.setStatus(delivery.getStatus());
+		}
+		catch (Exception e)
+		{
+			throw new OpenEditException(e);
+		}
+		return status;
 	}
 }
