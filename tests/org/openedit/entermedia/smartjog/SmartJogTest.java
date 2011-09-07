@@ -38,7 +38,7 @@ public class SmartJogTest extends BaseEnterMediaTest
 
 		String base = getRoot().getParent().toString();
 		SmartJog ssc = new SmartJog(base + "/etc/ssl/openssl/");
-
+		
 		log.info("SSL Configuration done.");
 		try
 		{

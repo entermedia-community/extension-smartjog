@@ -5,3 +5,20 @@ Password to everything is qasklp
 2. Certificate request client.csr was signed by SmartJog. Returned as Entermedia_00110.crt
 
 3. sj-root-ca_200.crt, sj-token-ws_2008.crt, webservices.smartjog.com.pem, and EnterMedia_00110.crt were imported into openssl/truststore.jks
+
+
+The webservices.smartjog.com.pem had to be grabbed from the endpoint URL via firefox - "https://webservices.smartjog.com/sjws2.0/"
+
+
+You should NOT set environment variables for the trusted CA keystores - that will break https for anywhere but smartjog.
+
+Instead, install it in your current JVM:
+
+Go to /usr/lib/jvm/JAVA VERSION/jre/lib/security
+
+cp cacerts cacerts.backup
+keytool -import -file sj-root-ca_2008.crt -keystore cacerts
+keytool -import -file sj-token-ws_2008.crt -keystore cacerts -alias sj-token
+keytool -import -file webservices.smartjog.com -keystore cacerts -alias sj-token
+
+Use the files from the certs folder.
