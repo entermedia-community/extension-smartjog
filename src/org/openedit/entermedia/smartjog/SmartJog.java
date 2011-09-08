@@ -80,17 +80,13 @@ public class SmartJog
 		
 		if (!sslDir.endsWith("/"))
 			sslDir += "/";
-		log.info("Path of the TrustStore : " + sslDir + trustStoreName);
+		
 		log.info("Path of your certificate : " + sslDir + certificateName);
 		//System.setProperty("javax.net.debug", "all");
 		System.setProperty("javax.net.ssl.keyStore", sslDir + certificateName);
 		System.setProperty("javax.net.ssl.keyStorePassword",
 				certificatePassword);
 		System.setProperty("javax.net.ssl.keyStoreType", "PKCS12");
-//		System.setProperty("javax.net.ssl.trustStore", sslDir + trustStoreName);
-//		System.setProperty("javax.net.ssl.trustStorePassword",
-//				trustStorePassword);
-//		System.setProperty("javax.net.ssl.trustStoreType", "JKS");
 	}
 
 	public Company[] getAllCompanies() throws RemoteException
