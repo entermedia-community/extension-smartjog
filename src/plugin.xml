@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-<bean id="smartJog" class="org.openedit.entermedia.smartjog.SmartJog" lazy-init="false" singleton="true">
+<bean id="smartJog" class="org.openedit.entermedia.smartjog.SmartJog" lazy-init="false" singleton="true" init-method="init">
 		<property name="pageManager">
 			<ref bean="pageManager" />
 		</property>

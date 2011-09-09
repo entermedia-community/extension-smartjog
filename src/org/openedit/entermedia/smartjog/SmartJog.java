@@ -52,7 +52,7 @@ public class SmartJog
 
 	public void setPageManager(PageManager fieldPageManager) {
 		this.fieldPageManager = fieldPageManager;
-		intializedSSLWithPKCS12();
+
 	}
 
 	// example: https://webservices.demo.smartjog.tv/sjws2.0/
@@ -62,7 +62,9 @@ public class SmartJog
 															// production server
 		
 	}
-
+public void init(){
+	intializedSSLWithPKCS12();
+}
 	public SmartJog()
 	{
 		log.info("SMARTJOG CREATED");
