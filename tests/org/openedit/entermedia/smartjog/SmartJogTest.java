@@ -37,7 +37,7 @@ public class SmartJogTest extends BaseEnterMediaTest
 	{
 
 		String base = getRoot().getParent().toString();
-		SmartJog ssc = new SmartJog(base + "/etc/ssl/openssl/");
+		SmartJog ssc = new SmartJog();
 		
 		log.info("SSL Configuration done.");
 		try
@@ -126,7 +126,7 @@ public class SmartJogTest extends BaseEnterMediaTest
 	public void xtestList() throws Exception
 	{
 		String base = getRoot().getParent().toString();
-		SmartJog ssc = new SmartJog(base + "/etc/ssl/stores/");
+		SmartJog ssc = new SmartJog();
 
 		log.info("SSL Configuration done.");
 		try
