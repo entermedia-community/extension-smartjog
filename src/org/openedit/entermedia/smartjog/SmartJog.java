@@ -6,7 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.openedit.OpenEditException;
-import com.openedit.util.PathUtilities;
+import com.openedit.page.manage.PageManager;
 import com.smartjog.webservices.Company;
 import com.smartjog.webservices.DeliverRequest;
 import com.smartjog.webservices.DeliverResponse;
@@ -28,6 +28,8 @@ import com.smartjog.webservices.SmartjogWebservicesPortType;
 public class SmartJog
 {
 	protected SmartjogWebservicesPortType service = null;
+	protected SmartjogWebservicesLocator locator = null;
+	
 	private static final Log log = LogFactory.getLog(SmartJog.class);
 
 	/**
@@ -37,6 +39,21 @@ public class SmartJog
 	protected String trustStorePassword = "qasklp";
 	protected String certificateName = "client-cert.p12";
 	protected String certificatePassword = "qasklp";
+	protected PageManager fieldPageManager;
+   
+    
+	
+	
+
+
+	public PageManager getPageManager() {
+		return fieldPageManager;
+	}
+
+	public void setPageManager(PageManager fieldPageManager) {
+		this.fieldPageManager = fieldPageManager;
+		intializedSSLWithPKCS12();
+	}
 
 	// example: https://webservices.demo.smartjog.tv/sjws2.0/
 	protected String getWSAddress()
@@ -46,9 +63,9 @@ public class SmartJog
 		
 	}
 
-	public SmartJog(String inSSLDir)
+	public SmartJog()
 	{
-		intializedSSLWithPKCS12(inSSLDir);
+		log.info("SMARTJOG CREATED");
 	}
 
 	public SmartjogWebservicesPortType getService() throws OpenEditException
@@ -57,27 +74,30 @@ public class SmartJog
 		{
 			try
 			{
-				SmartjogWebservicesLocator webLocator = new SmartjogWebservicesLocator();
-				webLocator
+				
+				locator = new SmartjogWebservicesLocator();
+				
+				locator
 						.setSmartjogWebservicesPortEndpointAddress(getWSAddress());
-				service = webLocator.getSmartjogWebservicesPort();	
+				locator.getEngine().refreshGlobalOptions();
+				service = locator.getSmartjogWebservicesPort();	
 			}
 			catch (Exception e)
 			{
 				throw new OpenEditException(e);
 			}
-			
+
 		}
 		return service;
 	}
 
-	public void intializedSSLWithPKCS12(String sslDir)
+	public void intializedSSLWithPKCS12()
 	{
 		/* WARNING - The server needs to be retarted to accept new values.
 		 * Watch out for calling this code with first one catalogid, and then another,
 		 * because it WON'T WORK.
 		 */
-		
+		String sslDir = getPageManager().getPage("/WEB-INF/certs/").getContentItem().getAbsolutePath();
 		if (!sslDir.endsWith("/"))
 			sslDir += "/";
 		
